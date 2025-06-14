@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "tsc",
+    "build": "nest build",
     "start": "node dist/main.js",
     "build:render": "prisma generate && yarn build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
