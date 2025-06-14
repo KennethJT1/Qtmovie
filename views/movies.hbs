@@ -1,82 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Movies</title>
-    <style>
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .movie-card {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .movie-poster {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-        .movie-title {
-            margin-top: 10px;
-            margin-bottom: 5px;
-        }
-        .movie-meta {
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 5px;
-        }
-        .movie-plot {
-            margin-top: 10px;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-        .movie-images {
-            margin-top: 15px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .movie-images img {
-            width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-    </style>
+    <title>Movies</title>
 </head>
 <body>
-    <h1>Random Movies</h1>
-    <div class="movie-grid">
-        {{#each movies}}
-        <div class="movie-card">
-            <h2 class="movie-title">{{this.title}} ({{this.year}})</h2>
-            <div class="movie-meta">
-                <div><strong>Rated:</strong> {{this.rated}}</div>
-                <div><strong>Runtime:</strong> {{this.runtime}}</div>
-                <div><strong>Director:</strong> {{this.director}}</div>
-                <div><strong>IMDb Rating:</strong> {{this.imdbRating}} ({{this.imdbVotes}} votes)</div>
-            </div>
-            
-            {{#if this.posterUrl}}
-            <img src="{{this.posterUrl}}" alt="{{this.title}}" class="movie-poster">
-            {{else}}
-            <p>No poster available</p>
-            {{/if}}
-            
-            <div class="movie-plot">{{this.plot}}</div>
-            
-            {{#if this.images.length}}
-            <div class="movie-images">
-                {{#each this.images}}
-                    <img src="{{this}}" alt="Movie scene">
-                {{/each}}
-            </div>
-            {{/if}}
-        </div>
-        {{/each}}
+    {{#each movies}}
+    <div>
+        <h2>{{title}}</h2>
+        {{#if posterUrl}}
+        <img src="{{posterUrl}}" alt="{{title}}" width="200">
+        {{/if}}
     </div>
+    {{/each}}
 </body>
 </html>
