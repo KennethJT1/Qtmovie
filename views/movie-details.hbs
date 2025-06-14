@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{movie.title}} - Details</title>
+    <style>
+        .movie-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .movie-header {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .movie-poster {
+            max-width: 300px;
+            height: auto;
+        }
+        .movie-info {
+            flex: 1;
+        }
+        .movie-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .movie-images img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="movie-container">
+        <div class="movie-header">
+            {{#if movie.posterUrl}}
+            <img src="{{movie.posterUrl}}" alt="{{movie.title}}" class="movie-poster">
+            {{/if}}
+            <div class="movie-info">
+                <h1>{{movie.title}} ({{movie.year}})</h1>
+                <p><strong>Rated:</strong> {{movie.rated}}</p>
+                <p><strong>Released:</strong> {{movie.released}}</p>
+                <p><strong>Runtime:</strong> {{movie.runtime}}</p>
+                <p><strong>Genre:</strong> {{join movie.genres ", "}}</p>
+                <p><strong>Director:</strong> {{movie.director}}</p>
+                <p><strong>Writer:</strong> {{movie.writer}}</p>
+                <p><strong>Actors:</strong> {{movie.actors}}</p>
+                <p><strong>IMDb Rating:</strong> {{movie.imdbRating}} ({{movie.imdbVotes}} votes)</p>
+            </div>
+        </div>
+        
+        <div class="movie-plot">
+            <h2>Plot</h2>
+            <p>{{movie.plot}}</p>
+        </div>
+        
+        {{#if movie.images.length}}
+        <div class="movie-images">
+            <h2>Images</h2>
+            {{#each movie.images}}
+                <img src="{{this}}" alt="Movie scene">
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+</body>
+</html>
