@@ -1,21 +1,23 @@
-FROM node:22-alpine
+# Use a lightweight Node.js base image
+FROM node:18-alpine
 
+# Set the working directory
 WORKDIR /app
 
-# Install dependencies first for better caching
+# Copy package files
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production
 
-# Copy the rest of the files
-COPY . .
+# Install dependencies (including devDependencies)
+RUN npm install -g yarn && yarn install --frozen-lockfile
 
-# Generate Prisma client and build the app
-RUN npx prisma generate && yarn build
+# Generate Prisma client
+RUN npx prisma generate
 
-# Install dev dependencies only if needed
-RUN if [ "$NODE_ENV" = "development" ]; then yarn install; fi
+# Build the application
+RUN yarn build
 
+# Expose the port (if needed)
 EXPOSE 3000
 
-# Use node directly instead of yarn for better signal handling
+# Define the command to run the app
 CMD ["node", "dist/main.js"]
