@@ -10,14 +10,17 @@ COPY package.json yarn.lock ./
 # Install dependencies
 RUN yarn install --frozen-lockfile
 
-# Copy Prisma schema
-COPY prisma prisma
+# Copy source code
+COPY src src
 
 # Copy tsconfig.json
 COPY tsconfig.json ./
 
-# Copy source code
-COPY src src
+# Copy Prisma schema
+COPY prisma prisma
+
+# Copy views folder
+COPY views views
 
 # Generate Prisma client
 RUN npx prisma generate

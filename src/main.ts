@@ -9,11 +9,16 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
 
-  // Configure views - point to src/views
-  app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(join(process.cwd(), 'views'));
-  
-  // Set view engine
+  const basePath = process.cwd(); // /app in Docker
+
+  // Serve static assets
+  app.useStaticAssets(join(basePath, 'public'));
+
+  // Set base views directory
+  app.setBaseViewsDir(join(basePath, 'views'));
+
+  // Register Handlebars view engine with Express directly
+  app.engine('hbs', hbs.__express); 
   app.setViewEngine('hbs');
 
   const port = configService.get<number>('PORT') || 3000;
